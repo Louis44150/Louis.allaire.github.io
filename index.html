@@ -1,56 +1,50 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Louis Arcade</title>
-  <meta name="description" content="Mini-jeux gratuits dans ton navigateur">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f3eb">
+  <meta name="description" content="Indique les ingrédients de ton frigo et trouve une idée de recette adaptée à ton repas.">
+  <title>À Table ! — des recettes avec ce que tu as</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="topbar">
-    <button class="brand" id="homeButton" aria-label="Accueil">
-      <span class="brand-mark">L</span><span>Louis Arcade</span>
-    </button>
-    <div class="score-pill"><span>🏆</span><b id="totalScore">0</b></div>
+    <a class="brand" href="#home" aria-label="À Table, accueil"><span class="brand-mark">à</span><span>à table<span class="brand-dot">.</span></span></a>
+    <div class="top-note"><span class="status-dot"></span> Des idées avec ce que tu as déjà</div>
+    <a class="header-link" href="#how">Comment ça marche <span>↘</span></a>
   </header>
 
-  <main>
-    <section id="homeView" class="view active">
-      <div class="hero">
-        <div>
-          <p class="eyebrow">Bienvenue sur</p>
-          <h1>Choisis ton<br><span>prochain défi</span></h1>
-        </div>
-        <div class="hero-orbit" aria-hidden="true"><span>🎮</span></div>
-      </div>
-
-      <div class="game-grid">
-        <button class="game-card purple" data-game="memory">
-          <span class="game-icon">🧠</span><div><small>MEMORY</small><h2>Cartes magiques</h2><p>Trouvez toutes les paires</p></div><span class="arrow">›</span>
-        </button>
-        <button class="game-card orange" data-game="snake">
-          <span class="game-icon">🐍</span><div><small>SNAKE</small><h2>Serpent pixel</h2><p>Mangez, grandissez, survivez</p></div><span class="arrow">›</span>
-        </button>
-        <button class="game-card blue" data-game="ttt">
-          <span class="game-icon">⭕</span><div><small>STRATÉGIE</small><h2>Morpty</h2><p>Aligner trois symboles</p></div><span class="arrow">›</span>
-        </button>
-        <button class="game-card green" data-game="reaction">
-          <span class="game-icon">⚡</span><div><small>RÉFLEXES</small><h2>Test express</h2><p>Appuyez au bon moment</p></div><span class="arrow">›</span>
-        </button>
-      </div>
+  <main id="home">
+    <section class="intro">
+      <div class="intro-copy"><span class="eyebrow"><span>✳</span> TON ASSISTANT CUISINE</span><h1>Le frigo est plein.<br><em>On mange quoi&nbsp;?</em></h1><p>Dis-nous ce que tu as sous la main. On te déniche une idée simple, adaptée à ton appétit et à ton style.</p><div class="intro-stamp"><span>🥕</span><span>Moins de gaspillage,<br><b>plus de bons petits plats.</b></span></div></div>
+      <div class="food-art" aria-hidden="true"><div class="art-circle"></div><span class="food food-a">🍅</span><span class="food food-b">🥑</span><span class="food food-c">🥚</span><span class="food food-d">🌿</span><span class="art-scribble">Miam !</span><div class="art-caption">FRAIS, SIMPLE<br><b>& FAIT MAISON</b></div></div>
     </section>
 
-    <section id="gameView" class="view">
-      <button class="back-button" id="backButton">‹ Retour</button>
-      <div id="gameHost"></div>
+    <section class="planner" aria-labelledby="plannerTitle">
+      <div class="planner-heading"><div><span class="step-label">01 — DANS TA CUISINE</span><h2 id="plannerTitle">Qu’est-ce qu’on a ?</h2></div><span class="ingredient-count" id="ingredientCount">0 ingrédient</span></div>
+      <p class="helper">Ajoute les ingrédients disponibles. Tu peux aussi écrire plusieurs choses séparées par une virgule.</p>
+      <form class="ingredient-form" id="ingredientForm"><label class="sr-only" for="ingredientInput">Ajouter un ingrédient</label><span class="input-icon">＋</span><input id="ingredientInput" autocomplete="off" placeholder="Ex. tomates, riz, œufs…"><button type="submit">Ajouter</button></form>
+      <div class="suggestions"><span>À ajouter vite :</span><button type="button" data-add="œufs">🥚 œufs</button><button type="button" data-add="tomates">🍅 tomates</button><button type="button" data-add="pâtes">🍝 pâtes</button><button type="button" data-add="fromage">🧀 fromage</button><button type="button" data-add="riz">🍚 riz</button></div>
+      <div class="ingredient-list" id="ingredientList" aria-live="polite"><span class="empty-prompt">Tes ingrédients apparaîtront ici.</span></div>
+
+      <div class="preferences">
+        <div class="preference-block"><label class="step-label" for="people">02 — À COMBIEN ?</label><div class="people-control"><button type="button" id="minusPeople" aria-label="Diminuer le nombre de personnes">−</button><output id="peopleOutput" for="people">2</output><input id="people" type="range" min="1" max="12" value="2" aria-label="Nombre de personnes"><button type="button" id="plusPeople" aria-label="Augmenter le nombre de personnes">＋</button><span>personnes</span></div></div>
+        <div class="preference-block"><label class="step-label" for="mealStyle">03 — TON ENVIE DU MOMENT</label><div class="select-wrap"><select id="mealStyle"><option value="vite">⏱️ Quelque chose de rapide</option><option value="comfort">🍲 Réconfortant</option><option value="healthy">🥗 Plutôt léger</option><option value="fresh">🌿 Frais et coloré</option><option value="surprise">🎲 Surprends-moi</option></select><span>⌄</span></div></div>
+      </div>
+      <button class="generate-button" id="generateButton"><span>✳</span> Trouver une recette <b>→</b></button>
+      <p class="form-hint" id="formHint" aria-live="polite">Ajoute au moins un ingrédient pour commencer.</p>
     </section>
+
+    <section class="results" id="results" hidden aria-live="polite"><div class="results-heading"><div><span class="step-label">À TABLE !</span><h2>Une idée qui donne faim.</h2></div><button class="again-button" id="againButton">↻ Une autre idée</button></div><div class="recipe-grid" id="recipeGrid"></div><p class="results-footnote">Les quantités sont indicatives : goûte et ajuste à ton envie. Pense à vérifier les allergènes de tes ingrédients.</p></section>
+
+    <section class="how" id="how"><div class="how-icon">✳</div><div><span class="step-label">LA CUISINE, SANS PRESSION</span><h2>Comment ça marche ?</h2><p>Ajoute ce qui traîne dans tes placards, choisis le nombre de personnes et ton envie du moment : <b>À Table !</b> compose des idées de recettes à partir de tes ingrédients, sans compte ni téléchargement.</p></div><div class="how-side">TES INGRÉDIENTS<br><b>TES RÈGLES</b><br>TON REPAS</div></section>
   </main>
 
-  <footer>Fait avec 💜 pour jouer librement</footer>
+  <footer><a class="brand footer-brand" href="#home"><span class="brand-mark">à</span><span>à table<span class="brand-dot">.</span></span></a><span>Fait avec amour et les restes du frigo.</span><a href="#home">Retour en haut ↑</a></footer>
   <script src="script.js"></script>
 </body>
 </html>
