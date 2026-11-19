@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Louis Arcade</title>
+  <meta name="description" content="Mini-jeux gratuits dans ton navigateur">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <button class="brand" id="homeButton" aria-label="Accueil">
+      <span class="brand-mark">L</span><span>Louis Arcade</span>
+    </button>
+    <div class="score-pill"><span>🏆</span><b id="totalScore">0</b></div>
+  </header>
+
+  <main>
+    <section id="homeView" class="view active">
+      <div class="hero">
+        <div>
+          <p class="eyebrow">Bienvenue sur</p>
+          <h1>Choisis ton<br><span>prochain défi</span></h1>
+        </div>
+        <div class="hero-orbit" aria-hidden="true"><span>🎮</span></div>
+      </div>
+
+      <div class="game-grid">
+        <button class="game-card purple" data-game="memory">
+          <span class="game-icon">🧠</span><div><small>MEMORY</small><h2>Cartes magiques</h2><p>Trouvez toutes les paires</p></div><span class="arrow">›</span>
+        </button>
+        <button class="game-card orange" data-game="snake">
+          <span class="game-icon">🐍</span><div><small>SNAKE</small><h2>Serpent pixel</h2><p>Mangez, grandissez, survivez</p></div><span class="arrow">›</span>
+        </button>
+        <button class="game-card blue" data-game="ttt">
+          <span class="game-icon">⭕</span><div><small>STRATÉGIE</small><h2>Morpty</h2><p>Aligner trois symboles</p></div><span class="arrow">›</span>
+        </button>
+        <button class="game-card green" data-game="reaction">
+          <span class="game-icon">⚡</span><div><small>RÉFLEXES</small><h2>Test express</h2><p>Appuyez au bon moment</p></div><span class="arrow">›</span>
+        </button>
+      </div>
+    </section>
+
+    <section id="gameView" class="view">
+      <button class="back-button" id="backButton">‹ Retour</button>
+      <div id="gameHost"></div>
+    </section>
+  </main>
+
+  <footer>Fait avec 💜 pour jouer librement</footer>
+  <script src="script.js"></script>
+</body>
+</html>
